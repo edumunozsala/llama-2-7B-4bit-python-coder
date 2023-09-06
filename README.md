@@ -1,6 +1,14 @@
 # 👩‍💻 Fine-tune a Llama 2 7B parameters in 4-bit to generate Python Code
 
-**LlaMa-2 7B** model fine-tuned on the **python_code_instructions_18k_alpaca Code instructions dataset** by using the method **QLoRA** in 4-bit with [PEFT](https://github.com/huggingface/peft) library.
+**LlaMa-2 7B** model fine-tuned on the **python_code_instructions_18k_alpaca Code instructions dataset** by using the method **QLoRA** in 4-bit with [PEFT](https://github.com/huggingface/peft) and bitsandbytes library.
+
+Aditionally, we include a **GPTQ quantized version** of the model, **LlaMa-2 7B 4-bit GPTQ** using Auto-GPTQ integrated with Hugging Face transformers.
+The quantization parameters for the GPTQ algo are:
+- 4-bit quantization
+- Group size is 128
+- Dataset C4
+- Decreasing activation is False
+
 
 
 ## The dataset
@@ -12,8 +20,9 @@ This is an extraction of the [original dataset](https://huggingface.co/datasets/
 
 Our goal is to fine-tune the pretrained model, Llama 2 7B parameters, using 4-bit quantization to produce a Python coder. We will run the training on Google Colab using a A100 to get better performance. But you can try out to run it on a T4 adjusting some parameters to reduce memory consumption like batch size.
 
-**Note:** This is still in progress and some models maybe need some more experimentation to return good answers.
+Once the model is fine-tuned, we apply the GPTQ quantization to get a new model with a better inference time.
 
+**Note:** This is still in progress and some models may be included. 
 
 ## The base model
 [Llama-2](https://huggingface.co/meta-llama/Llama-2-7b)
@@ -22,12 +31,21 @@ Meta developed and publicly released the Llama 2 family of large language models
 
 Model Architecture Llama 2 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF) to align to human preferences for helpfulness and safety
 
+## Quantization
+
+A quick definition extracted from a great article in Medium by Benjamin Marie ["GPTQ or bitsandbytes: Which Quantization Method to Use for LLMs — Examples with Llama 2"](https://medium.com/towards-data-science/gptq-or-bitsandbytes-which-quantization-method-to-use-for-llms-examples-with-llama-2-f79bc03046dc) (Only for Medium subscribers)
+
+*"GPTQ (Frantar et al., 2023) was first applied to models ready to deploy. In other words, once the model is fully fine-tuned, GPTQ will be applied to reduce its size. GPTQ can lower the weight precision to 4-bit or 3-bit. 
+In practice, GPTQ is mainly used for 4-bit quantization. 3-bit has been shown very unstable (Dettmers and Zettlemoyer, 2023). It quantizes without loading the entire model into memory. Instead, GPTQ loads and quantizes the LLM module by module. 
+Quantization also requires a small sample of data for calibration which can take more than one hour on a consumer GPU."*
+
 ## Content
 **Still In progress**
 
 - Fine-tuning notebook `Llama-2-finetune-qlora-python-coder.ipynb`: In this notebook we fine-tune the model.
 - Fine-tuning script `train.py`: An script to run training process.
 - Notebook to run the script `run-script-finetune-llama-2-python-coder.ipynb`: An very simple example on how to use NER to search for relevant articles.
+- Quantization notebook `Quantize-Llama-2-7B-python-coder-GPTQ.ipynb`: In this notebook we quantize the model with GPTQ.
 
 ### Example of usage
 

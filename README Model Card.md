@@ -113,7 +113,7 @@ model_id = "edumunozsala/llama-2-7b-int4-python-code-20k"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForCausalLM.from_pretrained(model_id, load_in_4bit=True, torch_dtype=torch.float16, 
-                                             device_map=device_map)
+                                             device_map="auto")
 
 instruction="Write a Python function to display the first and last elements of a list."
 input=""
