@@ -1,5 +1,6 @@
-# 👩‍💻 Fine-tune a Llama 2 7B parameters in 4-bit to generate Python Code
+# 👩‍💻 Fine-tune Llama 2-like models to generate Python Code
 
+## Llama-2 7B
 **LlaMa-2 7B** model fine-tuned on the **python_code_instructions_18k_alpaca Code instructions dataset** by using the method **QLoRA** in 4-bit with [PEFT](https://github.com/huggingface/peft) and bitsandbytes library.
 
 Aditionally, we include a **GPTQ quantized version** of the model, **LlaMa-2 7B 4-bit GPTQ** using Auto-GPTQ integrated with Hugging Face transformers.
@@ -9,6 +10,10 @@ The quantization parameters for the GPTQ algo are:
 - Dataset C4
 - Decreasing activation is False
 
+## TinyLlaMa 1.1B
+We have also finetuned a TinyLlama 1.1 model using the **Axolot** library:
+
+**TinyLlaMa 1.1B** fine-tuned on the **python_code_instructions_18k_alpaca Code instructions dataset** by using the **Axolot** library in 4-bit with [PEFT](https://github.com/huggingface/peft) library.
 
 
 ## The dataset
@@ -22,14 +27,21 @@ Our goal is to fine-tune the pretrained model, Llama 2 7B parameters, using 4-bi
 
 Once the model is fine-tuned, we apply the GPTQ quantization to get a new model with a better inference time.
 
-**Note:** This is still in progress and some models may be included. 
+**Note:** This is still in progress and some models may be included in the future. 
 
-## The base model
+## The base models
 [Llama-2](https://huggingface.co/meta-llama/Llama-2-7b)
 
 Meta developed and publicly released the Llama 2 family of large language models (LLMs), a collection of pretrained and fine-tuned generative text models ranging in scale from 7 billion to 70 billion parameters.
 
 Model Architecture Llama 2 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF) to align to human preferences for helpfulness and safety
+
+[TinyLlama-1.1B](https://huggingface.co/TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T)
+
+The [TinyLlama project](https://github.com/jzhang38/TinyLlama) aims to pretrain a 1.1B Llama model on 3 trillion tokens. With some proper optimization, they can achieve this within a span of "just" 90 days using 16 A100-40G GPUs 🚀🚀.
+
+They adopted exactly the same architecture and tokenizer as Llama 2. This means TinyLlama can be plugged and played in many open-source projects built upon Llama. Besides, TinyLlama is compact with only 1.1B parameters. This compactness allows it to cater to a multitude of applications demanding a restricted computation and memory footprint.
+
 
 ## Quantization
 
@@ -46,6 +58,7 @@ Quantization also requires a small sample of data for calibration which can take
 - Fine-tuning script `train.py`: An script to run training process.
 - Notebook to run the script `run-script-finetune-llama-2-python-coder.ipynb`: An very simple example on how to use NER to search for relevant articles.
 - Quantization notebook `Quantize-Llama-2-7B-python-coder-GPTQ.ipynb`: In this notebook we quantize the model with GPTQ.
+- Finetuning TinyLlama 1.1B with Axolot in notebook `Finetuning_TinyLlama_with_Axolotl.pynb`.
 
 ### Example of usage
 
