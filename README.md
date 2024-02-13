@@ -58,7 +58,7 @@ Quantization also requires a small sample of data for calibration which can take
 - Fine-tuning script `train.py`: An script to run training process.
 - Notebook to run the script `run-script-finetune-llama-2-python-coder.ipynb`: An very simple example on how to use NER to search for relevant articles.
 - Quantization notebook `Quantize-Llama-2-7B-python-coder-GPTQ.ipynb`: In this notebook we quantize the model with GPTQ.
-- Finetuning TinyLlama 1.1B with Axolot in notebook `Finetuning_TinyLlama_with_Axolotl.pynb`.
+- Finetuning TinyLlama 1.1B with Axolot in notebook `Finetuning_TinyLlama_with_Axolot.pynb`.
 
 ### Example of usage
 
